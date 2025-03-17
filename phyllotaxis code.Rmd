@@ -1,0 +1,46 @@
+---
+title: "phyllotaxis_flower"
+author: "Darshita Guckhool"
+date: "2025-01-17"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+#dev.off(dev.list()["RStudioGD"])
+library(ggplot2)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+points =1000
+g_angle = pi * (3-sqrt(5))
+angle=(1:points)*g_angle
+radius = sqrt(1:points)
+phyllotaxis= data.frame(n=1:points, angle, radius)
+
+phyllotaxis$x = phyllotaxis$radius * cos(phyllotaxis$angle)
+phyllotaxis$y = phyllotaxis$radius * sin(phyllotaxis$angle)
+phyllotaxis$color = phyllotaxis$n
+phyllotaxis$size = sqrt(phyllotaxis$n)/15
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+phyllotaxis_image = ggplot(phyllotaxis, aes(x=x, y=y))+geom_point(aes(color = color, size=size), alpha = 0.7)+scale_color_gradient(low="green", high="purple")+theme_void()+theme(legend.position = "none")
+
+print(phyllotaxis_image)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
